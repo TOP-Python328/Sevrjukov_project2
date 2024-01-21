@@ -1,0 +1,60 @@
+class DictOfRanges(dict):
+    def __init__(self, mappable: dict):
+        for key in mappable:
+            if (
+                   not isinstance(key, tuple) 
+                or len(key) != 2
+                or not isinstance(key[0], int) 
+                or not isinstance(key[1], int)
+            ):
+                raise ValueError('...')
+        super().__init__(mappable)
+    
+    def __getitem__(self, key: int):
+        if isinstance(key, int):
+            for left, right in self:
+                if left <= key <= right:
+                    return super().__getitem__((left, right))
+        else:
+            return super().__getitem__(key)
+    
+    def get_range(self, key: int) -> tuple[int, int]:
+        if isinstance(key, int):
+            for left, right in self:
+                if left <= key <= right:
+                    return left, right
+        else:
+            raise TypeError
+
+
+class Health:
+    value: int
+    name = 'Здоровье'
+    def update(self):
+        pass
+
+
+class Hapiness:
+    value: int
+    name = 'Счастье'
+    def update(self):
+        pass
+
+
+class Satiety:
+    value: int
+    name = 'Сытость'
+    def update(self):
+        pass
+
+
+class Sleep:
+    value: int
+    name = 'Сон'
+    def update(self):
+        pass
+
+
+class CreatureParameter:
+    pass
+
