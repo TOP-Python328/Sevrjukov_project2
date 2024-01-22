@@ -1,3 +1,6 @@
+from dataclasses import dataclass
+
+
 class DictOfRanges(dict):
     def __init__(self, mappable: dict):
         for key in mappable:
@@ -26,35 +29,61 @@ class DictOfRanges(dict):
         else:
             raise TypeError
 
+@dataclass 
+class KindParameter:
+    name: str
+    val: float
+    min: int
+    max: int
 
-class Health:
-    value: int
-    name = 'Здоровье'
-    def update(self):
+
+class Action:
+    def __init__(self, name, creature):
+        self.name = name
+        self.creature = creature
+        #self.creature: Creature = creature
+
+    def do(self):
         pass
 
 
-class Hapiness:
-    value: int
-    name = 'Счастье'
-    def update(self):
-        pass
+class PlayerAction(Action):
+    image: str
 
 
-class Satiety:
-    value: int
-    name = 'Сытость'
-    def update(self):
-        pass
+class CreatureAction(Action):
+    image: str
+    chance: float
 
 
-class Sleep:
-    value: int
-    name = 'Сон'
-    def update(self):
-        pass
+class NoAction(Action):
+    image: str
 
 
-class CreatureParameter:
-    pass
+class MaturePhase:
+    def __init__(self, days, params, player_actions, creature_actions):
+        self.days = days
+        self.params: set[KindParameter] = params
+        self.player_actions: set[PlayerAction] = player_actions
+        self.creature_actions: set[CreatureAction] = creature_actions
 
+
+# class CreatureParameter:
+#     def __init__(self, name, val, min, max, creature):
+#         self.name = name
+#         self.val: float = val
+#         self.min: float = min
+#         self.max: float = max
+#         self.creature = creature
+        
+#     def get_value(self):
+#         return self.val
+    
+#     def range(self):
+#         return tuple(self.min, self.max)
+    
+#     def set_value(self, new_val):
+#         self.val = new_val
+
+#     def update(self):
+#         pass
